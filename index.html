@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensajes del Tarot Oculto – Holistic Ale Brooks</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, 'Times New Roman', serif; background: #0a0a0f; min-height: 100vh; color: #f0e6ff; }
+.header { background: #0a0a0f; border-bottom: 1px solid #c9a84c44; padding: 18px 20px; text-align: center; }
+.logo-area { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 4px; }
+.logo-svg { width: 54px; height: 54px; flex-shrink: 0; }
+.brand-name { font-size: 1.3rem; color: #c9a84c; letter-spacing: 3px; text-transform: uppercase; line-height: 1.3; }
+.brand-sub { font-size: 0.7rem; color: #c9a84c88; letter-spacing: 5px; text-transform: uppercase; }
+.container { max-width: 740px; margin: 0 auto; padding: 24px 16px; }
+.bienvenida { background: linear-gradient(135deg, #1a0d35, #0f1a0f); border: 1px solid #c9a84c33; border-radius: 16px; padding: 24px; text-align: center; margin-bottom: 24px; }
+.bienvenida h2 { color: #c9a84c; font-size: 1.15rem; letter-spacing: 2px; margin-bottom: 12px; }
+.bienvenida p { font-size: 0.97rem; line-height: 1.8; color: #d4bef7; }
+.personaliza { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+.personaliza input, .personaliza select { background: #0a0a0f; border: 1px solid #c9a84c55; border-radius: 8px; padding: 9px 14px; color: #f0e6ff; font-size: 0.9rem; font-family: Georgia, serif; }
+.personaliza input::placeholder { color: #c9a84c66; }
+.personaliza select option { background: #0a0a0f; }
+.btn-tirada { display: block; margin: 0 auto 28px; background: linear-gradient(135deg, #c9a84c, #a07830); border: none; border-radius: 40px; padding: 14px 42px; font-size: 1.05rem; color: #0a0a0f; font-family: Georgia, serif; font-weight: bold; letter-spacing: 1px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px #c9a84c44; }
+.btn-tirada:hover { transform: scale(1.04); box-shadow: 0 6px 28px #c9a84c66; }
+.cargando { text-align: center; padding: 40px; color: #c9a84c; font-size: 1rem; display: none; letter-spacing: 2px; }
+.cartas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.carta-wrap { text-align: center; width: 195px; flex-shrink: 0; }
+.carta-rol { font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px; }
+.carta-frame { width: 140px; height: 235px; margin: 0 auto 10px; border: 2px solid #c9a84c55; border-radius: 10px; overflow: hidden; background: #1a0d35; box-shadow: 0 0 18px #c9a84c22; }
+.carta-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carta-nombre { font-size: 0.92rem; color: #e8d8ff; font-weight: bold; margin-bottom: 7px; }
+.carta-desc { font-size: 0.78rem; line-height: 1.6; color: #c4aee8; }
+.divider { text-align: center; color: #c9a84c44; letter-spacing: 8px; margin: 10px 0 22px; }
+.mensaje-box { background: linear-gradient(135deg, #0f1a0f, #1a0d35); border: 1px solid #c9a84c44; border-left: 3px solid #c9a84c; border-radius: 12px; padding: 22px 24px; margin-bottom: 24px; }
+.mensaje-box h3 { color: #c9a84c; font-size: 1rem; letter-spacing: 1px; margin-bottom: 12px; }
+.mensaje-box p { font-size: 0.96rem; line-height: 1.85; color: #d4bef7; }
+.cta-box { background: linear-gradient(135deg, #1a0d35, #0f1a1f); border: 1px solid #c9a84c55; border-radius: 16px; padding: 24px; text-align: center; margin-bottom: 24px; }
+.cta-box h3 { color: #c9a84c; font-size: 1rem; letter-spacing: 1px; margin-bottom: 10px; }
+.cta-box p { font-size: 0.93rem; line-height: 1.75; color: #d4bef7; margin-bottom: 18px; }
+.btn-cta { display: inline-block; background: linear-gradient(135deg, #c9a84c, #a07830); border: none; border-radius: 30px; padding: 13px 32px; font-size: 0.97rem; color: #0a0a0f; font-family: Georgia, serif; font-weight: bold; cursor: pointer; letter-spacing: 0.5px; text-decoration: none; }
+.btn-nueva { display: block; margin: 0 auto; background: transparent; border: 1px solid #c9a84c55; border-radius: 30px; padding: 11px 30px; font-size: 0.92rem; color: #c9a84c; font-family: Georgia, serif; cursor: pointer; transition: background 0.2s; }
+.btn-nueva:hover { background: #c9a84c11; }
+#resultado { display: none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo-area">
+    <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#c9a84c">
+        <path d="M88 55 Q100 42 112 55 Q100 48 88 55Z"/>
+        <path d="M100 28 L102 36 L110 36 L104 41 L106 49 L100 44 L94 49 L96 41 L90 36 L98 36Z"/>
+        <path d="M72 65 L73 68 L76 68 L74 70 L75 73 L72 71 L69 73 L70 70 L68 68 L71 68Z"/>
+        <path d="M128 65 L129 68 L132 68 L130 70 L131 73 L128 71 L125 73 L126 70 L124 68 L127 68Z"/>
+        <path d="M55 110 Q100 68 145 110" fill="none" stroke="#c9a84c" stroke-width="4" stroke-linecap="round"/>
+        <path d="M55 110 Q100 152 145 110" fill="none" stroke="#c9a84c" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="100" cy="110" rx="12" ry="18"/>
+        <path d="M80 142 Q68 155 75 165 Q82 155 85 148" fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round"/>
+        <path d="M120 142 Q132 155 125 165 Q118 155 115 148" fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round"/>
+        <path d="M100 168 L101 172 L105 172 L102 174 L103 178 L100 176 L97 178 L98 174 L95 172 L99 172Z"/>
+        <text x="58" y="115" font-size="26" font-family="Georgia" fill="#c9a84c" font-style="italic">A</text>
+        <text x="126" y="115" font-size="26" font-family="Georgia" fill="#c9a84c" font-style="italic">B</text>
+      </g>
+    </svg>
+    <div>
+      <div class="brand-name">Holistic Ale Brooks</div>
+      <div class="brand-sub">Mensajes del Tarot Oculto</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="bienvenida">
+    <h2>✦ Mensajes del Tarot Oculto ✦</h2>
+    <p>Hermosa mujer, el universo tiene un mensaje especial para ti hoy.<br>Respira profundo, centra tu corazón y permite que las energías del Tarot Rider-Waite hablen a tu alma.</p>
+    <div class="personaliza">
+      <input type="text" id="nombre" placeholder="Tu nombre (opcional)" maxlength="30">
+      <select id="signo">
+        <option value="">Tu signo (opcional)</option>
+        <option>Aries</option><option>Tauro</option><option>Géminis</option>
+        <option>Cáncer</option><option>Leo</option><option>Virgo</option>
+        <option>Libra</option><option>Escorpio</option><option>Sagitario</option>
+        <option>Capricornio</option><option>Acuario</option><option>Piscis</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn-tirada" onclick="realizarTirada()">🌙 ¡Saca tu mensaje del día!</button>
+  <div class="cargando" id="cargando">✦ Las cartas están hablando para ti... ✦</div>
+
+  <div id="resultado">
+    <div class="cartas" id="cartas-container"></div>
+    <div class="divider">· · ✦ · ·</div>
+    <div class="mensaje-box" id="mensaje-box">
+      <h3>🌙 Tu mensaje del día</h3>
+      <p style="color:#c9a84c88;font-style:italic;">Tejiendo las energías de tus cartas...</p>
+    </div>
+    <div class="cta-box">
+      <h3>¿Quieres ir más profundo?</h3>
+      <p id="cta-texto">Este es solo un vistazo del mensaje que el universo tiene para ti. Una lectura completa y personalizada puede transformar tu camino.</p>
+      <a class="btn-cta" href="https://tidycal.com/alebrooksenergy" target="_blank">📅 Reserva tu sesión Zoom de 60 min</a>
+    </div>
+    <button class="btn-nueva" onclick="nuevaTirada()">🔄 Nueva tirada</button>
+  </div>
+</div>
+
+<script>
+const BASE = "./";
+
+const mayores = [
+  {n:"EL Loco", desc:"Nuevos comienzos y libertad. Es momento de dar un salto de fe con confianza. El universo te respalda."},
+  {n:"El mago", desc:"Tienes todos los recursos para crear lo que deseas. Tu poder creativo está completamente activo hoy."},
+  {n:"La Sacerdotisa", desc:"Escucha tu intuición profunda. Las respuestas que buscas ya están dentro de ti."},
+  {n:"La Emperatriz", desc:"Nutre tu esencia femenina hoy. Eres abundancia, creatividad y amor. Permítete florecer."},
+  {n:"El Emperador", desc:"Es tiempo de establecer límites saludables y estructurar tu vida desde la seguridad."},
+  {n:"El Hierofante", desc:"Tu sabiduría espiritual y tu comunidad son tu mayor apoyo hoy."},
+  {n:"Los Enamorados", desc:"El universo te invita a tomar decisiones desde el corazón. El amor en todas sus formas te guía."},
+  {n:"El Carro", desc:"La victoria está en tus manos. Tu determinación te lleva exactamente a donde necesitas estar."},
+  {n:"La Fuerza", desc:"Tu mayor poder es la compasión y el coraje suave. La fuerza femenina que llevas dentro es extraordinaria."},
+  {n:"EL Ermitaño", desc:"Tu sabiduría ganada con experiencia es tu guía hoy. Tu luz interior ilumina el camino."},
+  {n:"La Rueda de la Fortuna", desc:"Los ciclos se renuevan y algo muy bueno viene en camino. Confía en el movimiento natural de tu vida."},
+  {n:"La Justicia", desc:"El equilibrio y la verdad florecen hoy a tu favor. Lo que has sembrado con amor da sus frutos."},
+  {n:"El Colgado", desc:"Una pausa sagrada te trae una nueva perspectiva transformadora. Suelta para recibir algo mejor."},
+  {n:"La Muerte", desc:"Una transformación poderosa está en marcha. Un ciclo termina para que algo hermoso y nuevo nazca."},
+  {n:"La Templanza", desc:"La paciencia y el equilibrio son tus grandes aliados hoy. Estás integrando sabiamente tus experiencias."},
+  {n:"EL Diablo", desc:"Reconoces lo que ya no te sirve y tienes el poder de liberarte. La libertad auténtica es tuya."},
+  {n:"La Torre", desc:"Lo que cae hoy no era tuyo. Una revelación liberadora te permite renacer más fuerte y auténtica."},
+  {n:"La Estrella", desc:"Esperanza, sanación y guía divina te acompañan hoy. El universo vela por ti en cada paso."},
+  {n:"La Luna", desc:"Tu intuición se agudiza profundamente. Los mensajes de tus emociones merecen toda tu atención."},
+  {n:"El Sol", desc:"Alegría, vitalidad y éxito brillan para ti hoy. Este es tu momento de resplandecer con toda tu luz."},
+  {n:"EL Juicio", desc:"Un llamado poderoso a tu propósito más elevado. Renaces con más sabiduría y amor propio."},
+  {n:"EL Mundo", desc:"Completitud y celebración. Has llegado a una meta muy importante. El universo reconoce tu camino."}
+];
+
+const menores = {
+  Copas: { cartas:[
+    {n:"As de Copas", desc:"Un nuevo amor o emoción fresca llega a tu corazón. Ábrelo con confianza."},
+    {n:"Dos de Copas", desc:"Conexión y armonía florecen en tus relaciones más importantes."},
+    {n:"Tres de Copas", desc:"Es tiempo de celebrar con tus amigas y recibir el apoyo femenino que mereces."},
+    {n:"Cuatro de Copas", desc:"Haz una pausa para valorar profundamente todo lo que ya tienes en tu vida."},
+    {n:"Cinco de Copas", desc:"Suelta las pérdidas del pasado; hay copas llenas de amor esperándote adelante."},
+    {n:"Seis de Copas", desc:"Una nostalgia dulce o un amor que regresa de formas inesperadas y hermosas."},
+    {n:"Siete de Copas", desc:"Tienes múltiples opciones ante ti; elige con el corazón y la intuición."},
+    {n:"Ocho de Copas", desc:"Dejas algo atrás para buscar algo mucho más significativo y auténtico."},
+    {n:"Nueve de Copas", desc:"Satisfacción emocional profunda. Tus deseos más queridos están cumpliéndose."},
+    {n:"Diez de Copas", desc:"Felicidad familiar y plenitud emocional. El hogar del corazón está floreciendo."},
+    {n:"Paje de Copas", desc:"Un mensaje de amor o una nueva y bella emoción está llegando a tu vida."},
+    {n:"Caballero de Copas", desc:"Una invitación romántica o afectiva se acerca. Recíbela con apertura."},
+    {n:"Reina de Copas", desc:"Tu intuición poderosa y tu corazón compasivo son tus mayores dones hoy."},
+    {n:"Rey de Copas", desc:"La madurez emocional y el liderazgo amoroso son tu guía en este momento."}
+  ]},
+  Espadas: { cartas:[
+    {n:"As de Espadas", desc:"Claridad mental poderosa llega hoy. La verdad te libera y te da dirección clara."},
+    {n:"Dos de Espadas", desc:"Una decisión importante necesita quietud y tiempo. Confía en tu proceso interno."},
+    {n:"Tres de Espadas", desc:"El dolor que reconoces y sientes honestamente es el que sana más profundamente."},
+    {n:"Cuatro de Espadas", desc:"Tu mente activa merece descanso reparador. El reposo también es sabiduría."},
+    {n:"Cinco de Espadas", desc:"Una situación difícil ha llegado a su fin. Es momento de avanzar con ligereza."},
+    {n:"Seis de Espadas", desc:"Una transición suave hacia aguas más tranquilas. El pasaje que tomas es seguro."},
+    {n:"Siete de Espadas", desc:"La estrategia inteligente es tu mejor aliada hoy. Piensa antes de actuar."},
+    {n:"Ocho de Espadas", desc:"Las limitaciones que sientes son más mentales que reales. Eres mucho más libre."},
+    {n:"Nueve de Espadas", desc:"Los miedos nocturnos se disipan con la luz del nuevo día que llega para ti."},
+    {n:"Diez de Espadas", desc:"Un ciclo difícil termina definitivamente hoy. El amanecer luminoso es completamente tuyo."},
+    {n:"Paje de Espadas", desc:"Curiosidad intelectual fresca y nuevas ideas inspiradoras llegan a tu mente."},
+    {n:"Caballero de Espadas", desc:"Acción rápida y decisiva. El momento de moverte con valentía es ahora mismo."},
+    {n:"Reina de Espadas", desc:"Tu mente aguda, tu independencia y tu sabiduría ganada son tus grandes poderes."},
+    {n:"Rey de Espadas", desc:"El liderazgo mental y el pensamiento claro y justo te guían hoy con fuerza."}
+  ]},
+  Oros: { cartas:[
+    {n:"As de Oros", desc:"Una nueva oportunidad material o económica llama a tu puerta hoy. Ábrela."},
+    {n:"Dos de Oros", desc:"Equilibrio financiero y adaptación elegante ante los cambios que vienen."},
+    {n:"Tres de Oros", desc:"Tu trabajo y talento están siendo reconocidos y valorados profundamente."},
+    {n:"Cuatro de Oros", desc:"La seguridad y estabilidad que has construido con esfuerzo son completamente tuyas."},
+    {n:"Cinco de Oros", desc:"Una dificultad temporal pasa; el apoyo que necesitas está más cerca de lo que crees."},
+    {n:"Seis de Oros", desc:"Tu generosidad regresa multiplicada. El dar y recibir están en hermoso equilibrio."},
+    {n:"Siete de Oros", desc:"Tu inversión de tiempo y esfuerzo está dando frutos. La paciencia es sabia."},
+    {n:"Ocho de Oros", desc:"La maestría y dedicación que pones en lo que haces crean una excelencia real."},
+    {n:"Nueve de Oros", desc:"Independencia, abundancia y logros propios. ¡Todo lo que tienes lo has ganado!"},
+    {n:"Diez de Oros", desc:"Estabilidad familiar y un legado duradero se construyen con amor desde hoy."},
+    {n:"Paje de Oros", desc:"Una oportunidad de aprendizaje o un proyecto nuevo y prometedor emerge para ti."},
+    {n:"Caballero de Oros", desc:"Un avance constante y confiable hacia tus metas más importantes está en marcha."},
+    {n:"Reina de Oros", desc:"Abundancia, sensualidad y conexión profunda con la naturaleza te nutren hoy."},
+    {n:"Rey de Oros", desc:"El éxito material y la generosidad sabia fluyen juntos en tu vida ahora."}
+  ]},
+  Bastos: { cartas:[
+    {n:"As de Bastos", desc:"Inspiración poderosa y energía creativa en su punto más alto. ¡Crea hoy!"},
+    {n:"Dos de Bastos", desc:"Tu visión audaz y tu planificación inteligente están construyendo algo grande."},
+    {n:"Tres de Bastos", desc:"Tu visión se expande más allá de lo que imaginabas. El horizonte es vasto y tuyo."},
+    {n:"Cuatro de Bastos", desc:"Celebración, hogar feliz y una estabilidad llena de alegría te envuelven hoy."},
+    {n:"Cinco de Bastos", desc:"La competencia sana y el movimiento activo te impulsan a dar tu mejor versión."},
+    {n:"Seis de Bastos", desc:"La victoria y el reconocimiento llegan. Este es definitivamente tu momento de brillar."},
+    {n:"Siete de Bastos", desc:"Tu posición es más fuerte de lo que parece. Defiende tu verdad con confianza."},
+    {n:"Ocho de Bastos", desc:"Todo se mueve rápido y con claridad. Fluye con gracia con el ritmo acelerado."},
+    {n:"Nueve de Bastos", desc:"Eres más resiliente de lo que imaginas. Estás muy cerca de llegar a tu meta."},
+    {n:"Diez de Bastos", desc:"Es momento de delegar con gracia lo que ya no necesitas cargar sola. Libérate."},
+    {n:"Paje de Bastos", desc:"Un nuevo proyecto creativo o una aventura emocionante está esperándote."},
+    {n:"Caballero de Bastos", desc:"Pasión y acción audaz. La energía del universo fluye completamente contigo hoy."},
+    {n:"Reina de Bastos", desc:"Tu carisma, tu pasión y tu liderazgo inspirador son regalos que el mundo necesita."},
+    {n:"Rey de Bastos", desc:"Visión poderosa y creatividad al servicio de todos. Tu influencia positiva es real."}
+  ]}
+};
+
+function getRnd(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
+function imgUrl(n) { return BASE + encodeURIComponent(n) + ".png"; }
+function sortearMayor() { return {...getRnd(mayores)}; }
+function sortearMenor() {
+  const palo = getRnd(Object.keys(menores));
+  const carta = getRnd(menores[palo].cartas);
+  return {...carta};
+}
+
+function htmlCarta(c, rol) {
+  return `<div class="carta-wrap">
+    <div class="carta-rol">${rol}</div>
+    <div class="carta-frame">
+      <img src="${imgUrl(c.n)}" alt="${c.n}" onerror="this.style.display='none'">
+    </div>
+    <div class="carta-nombre">${c.n}</div>
+    <div class="carta-desc">${c.desc}</div>
+  </div>`;
+}
+
+async function realizarTirada() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const signo = document.getElementById('signo').value;
+  document.querySelector('.btn-tirada').style.display = 'none';
+  document.getElementById('cargando').style.display = 'block';
+  document.getElementById('resultado').style.display = 'none';
+
+  const usadas = new Set();
+  function cartaUnica(fn) {
+    let c, intentos = 0;
+    do { c = fn(); intentos++; } while (usadas.has(c.n) && intentos < 20);
+    usadas.add(c.n);
+    return c;
+  }
+
+  const mayor = cartaUnica(sortearMayor);
+  const menor1 = cartaUnica(sortearMenor);
+  const menor2 = cartaUnica(sortearMenor);
+
+  await new Promise(r => setTimeout(r, 1400));
+  document.getElementById('cargando').style.display = 'none';
+
+  document.getElementById('cartas-container').innerHTML =
+    htmlCarta(mayor, '✨ Tu guía principal del día') +
+    htmlCarta(menor1, '🌅 Energía del mañana') +
+    htmlCarta(menor2, '💡 Consejo práctico');
+
+  const ctaTxt = nombre
+    ? `${nombre}, este mensaje es solo el inicio de lo que el universo tiene para ti. ¿Quieres explorar juntas tus preguntas más profundas en una sesión personalizada?`
+    : `Este es solo un vistazo del mensaje que el universo tiene para ti hoy. Una lectura completa y personalizada puede transformar tu camino.`;
+  document.getElementById('cta-texto').textContent = ctaTxt;
+  document.getElementById('resultado').style.display = 'block';
+
+  const prompt = `Eres una tarotista compasiva especializada en mujeres hispanohablantes mayores de 45 años. 
+Genera un mensaje del día en español, cálido, positivo y empoderador (4-5 oraciones) integrando estas tres cartas del Tarot Rider-Waite:
+- Arcano Mayor "${mayor.n}" como guía principal: ${mayor.desc}
+- Carta menor "${menor1.n}" como energía del mañana: ${menor1.desc}
+- Carta menor "${menor2.n}" como consejo práctico: ${menor2.desc}
+${signo ? `La usuaria es del signo ${signo}.` : ''}${nombre ? ` Su nombre es ${nombre}.` : ''}
+El mensaje debe: mencionar las cartas de forma natural y fluida, enfocarse en temas de autoestima, relaciones, propósito y salud emocional para mujeres de 45+, usar tono íntimo de mujer a mujer, y terminar con una afirmación positiva breve entre *asteriscos*.
+Solo escribe el párrafo continuo, sin títulos ni listas.`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:1000, messages:[{role:"user", content:prompt}] })
+    });
+    const data = await res.json();
+    let texto = data.content?.[0]?.text || fallback(mayor, menor1, menor2, nombre);
+    texto = texto.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    document.getElementById('mensaje-box').innerHTML = `<h3>🌙 Tu mensaje del día${nombre?' para '+nombre:''}</h3><p>${texto.replace(/\n/g,'<br>')}</p>`;
+  } catch(e) {
+    let texto = fallback(mayor, menor1, menor2, nombre);
+    texto = texto.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    document.getElementById('mensaje-box').innerHTML = `<h3>🌙 Tu mensaje del día</h3><p>${texto}</p>`;
+  }
+}
+
+function fallback(mayor, m1, m2, nombre) {
+  const n = nombre || 'Querida';
+  return `${n}, hoy ${mayor.n} ilumina tu camino: ${mayor.desc} La energía de ${m1.n} te invita a abrirte con confianza — ${m1.desc.toLowerCase()} Y como consejo práctico, ${m2.n} te susurra: ${m2.desc.toLowerCase()} Confía en el proceso, porque cada carta confirma que estás exactamente donde necesitas estar. *Eres sabia, eres fuerte y eres completamente suficiente.*`;
+}
+
+function nuevaTirada() {
+  document.getElementById('resultado').style.display = 'none';
+  document.querySelector('.btn-tirada').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>
