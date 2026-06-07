@@ -17,9 +17,9 @@ body { font-family: Georgia, 'Times New Roman', serif; background: #0a0a0f; min-
 .bienvenida h2 { color: #c9a84c; font-size: 1.15rem; letter-spacing: 2px; margin-bottom: 12px; }
 .bienvenida p { font-size: 0.97rem; line-height: 1.8; color: #d4bef7; }
 .personaliza { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
-.personaliza input, .personaliza select { background: #0a0a0f; border: 1px solid #c9a84c55; border-radius: 8px; padding: 9px 14px; color: #f0e6ff; font-size: 0.9rem; font-family: Georgia, serif; }
-.personaliza input::placeholder { color: #c9a84c66; }
-.personaliza select option { background: #0a0a0f; }
+.personaliza input, .personaliza select { background: #2a1a4a; border: 1px solid #c9a84c99; border-radius: 8px; padding: 9px 14px; color: #f0e6ff; font-size: 0.9rem; font-family: Georgia, serif; box-shadow: 0 0 8px #c9a84c22; }
+.personaliza input::placeholder { color: #c9a84caa; }
+.personaliza select option { background: #2a1a4a; }
 .btn-tirada { display: block; margin: 0 auto 28px; background: linear-gradient(135deg, #c9a84c, #a07830); border: none; border-radius: 40px; padding: 14px 42px; font-size: 1.05rem; color: #0a0a0f; font-family: Georgia, serif; font-weight: bold; letter-spacing: 1px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px #c9a84c44; }
 .btn-tirada:hover { transform: scale(1.04); box-shadow: 0 6px 28px #c9a84c66; }
 .cargando { text-align: center; padding: 40px; color: #c9a84c; font-size: 1rem; display: none; letter-spacing: 2px; }
@@ -107,95 +107,112 @@ body { font-family: Georgia, 'Times New Roman', serif; background: #0a0a0f; min-
 <script>
 const BASE = "./";
 
+const afirmaciones = [
+  "*Eres sabia, eres fuerte y mereces todo lo bueno que está llegando a tu vida.*",
+  "*Tu camino es único y hermoso — confía en cada paso que das.*",
+  "*Eres exactamente quien necesitas ser en este momento de tu vida.*",
+  "*Tu intuición es tu brújula más confiable — escúchala siempre.*",
+  "*Eres una mujer completa, poderosa y llena de luz interior.*",
+  "*Todo lo que necesitas ya vive dentro de ti — confía en eso.*",
+  "*Eres merecedora de amor, abundancia y paz en cada área de tu vida.*",
+  "*Tu fortaleza es real y ha sido probada — eres más resiliente de lo que imaginas.*",
+  "*El universo conspira a tu favor hoy y siempre.*",
+  "*Eres un regalo para el mundo — no olvides también recibirte como tal.*"
+];
+
+function afirmacionAleatoria() {
+  return afirmaciones[Math.floor(Math.random() * afirmaciones.length)];
+}
+
 const mayores = [
-  {n:"EL Loco", desc:"Nuevos comienzos y libertad. Es momento de dar un salto de fe con confianza. El universo te respalda."},
-  {n:"El mago", desc:"Tienes todos los recursos para crear lo que deseas. Tu poder creativo está completamente activo hoy."},
-  {n:"La Sacerdotisa", desc:"Escucha tu intuición profunda. Las respuestas que buscas ya están dentro de ti."},
-  {n:"La Emperatriz", desc:"Nutre tu esencia femenina hoy. Eres abundancia, creatividad y amor. Permítete florecer."},
-  {n:"El Emperador", desc:"Es tiempo de establecer límites saludables y estructurar tu vida desde la seguridad."},
-  {n:"El Hierofante", desc:"Tu sabiduría espiritual y tu comunidad son tu mayor apoyo hoy."},
-  {n:"Los Enamorados", desc:"El universo te invita a tomar decisiones desde el corazón. El amor en todas sus formas te guía."},
-  {n:"El Carro", desc:"La victoria está en tus manos. Tu determinación te lleva exactamente a donde necesitas estar."},
-  {n:"La Fuerza", desc:"Tu mayor poder es la compasión y el coraje suave. La fuerza femenina que llevas dentro es extraordinaria."},
-  {n:"EL Ermitaño", desc:"Tu sabiduría ganada con experiencia es tu guía hoy. Tu luz interior ilumina el camino."},
-  {n:"La Rueda de la Fortuna", desc:"Los ciclos se renuevan y algo muy bueno viene en camino. Confía en el movimiento natural de tu vida."},
-  {n:"La Justicia", desc:"El equilibrio y la verdad florecen hoy a tu favor. Lo que has sembrado con amor da sus frutos."},
-  {n:"El Colgado", desc:"Una pausa sagrada te trae una nueva perspectiva transformadora. Suelta para recibir algo mejor."},
-  {n:"La Muerte", desc:"Una transformación poderosa está en marcha. Un ciclo termina para que algo hermoso y nuevo nazca."},
-  {n:"La Templanza", desc:"La paciencia y el equilibrio son tus grandes aliados hoy. Estás integrando sabiamente tus experiencias."},
-  {n:"EL Diablo", desc:"Reconoces lo que ya no te sirve y tienes el poder de liberarte. La libertad auténtica es tuya."},
-  {n:"La Torre", desc:"Lo que cae hoy no era tuyo. Una revelación liberadora te permite renacer más fuerte y auténtica."},
-  {n:"La Estrella", desc:"Esperanza, sanación y guía divina te acompañan hoy. El universo vela por ti en cada paso."},
-  {n:"La Luna", desc:"Tu intuición se agudiza profundamente. Los mensajes de tus emociones merecen toda tu atención."},
-  {n:"El Sol", desc:"Alegría, vitalidad y éxito brillan para ti hoy. Este es tu momento de resplandecer con toda tu luz."},
-  {n:"EL Juicio", desc:"Un llamado poderoso a tu propósito más elevado. Renaces con más sabiduría y amor propio."},
-  {n:"EL Mundo", desc:"Completitud y celebración. Has llegado a una meta muy importante. El universo reconoce tu camino."}
+  {n:"EL Loco", desc:"El Loco te invita hoy a soltar el miedo y confiar en el salto. No necesitas tenerlo todo resuelto para comenzar; la vida premia a quienes se atreven a moverse con fe. Hay una energía fresca y llena de posibilidades esperándote al otro lado de tu zona de confort. Permítete ser principiante de algo nuevo sin juzgarte."},
+  {n:"El mago", desc:"El Mago te recuerda que ya tienes todo lo que necesitas para crear lo que deseas. Tu inteligencia, tu experiencia y tu intuición son herramientas poderosas que a veces subestimas. Hoy es un día ideal para tomar acción con intención clara. La magia no está fuera de ti — está en cómo usas lo que ya tienes."},
+  {n:"La Sacerdotisa", desc:"La Sacerdotisa te llama a bajar el ritmo y escuchar tu voz interior con más atención. Hay algo que ya sabes, aunque aún no lo hayas expresado con palabras. Confía en esa sensación profunda que te guía. No todo necesita ser analizado; a veces la respuesta llega cuando simplemente te permites sentir."},
+  {n:"La Emperatriz", desc:"La Emperatriz te abraza hoy y te recuerda que mereces abundancia, belleza y amor en todas sus formas. Es momento de nutrirte a ti misma con la misma generosidad con la que cuidas a los demás. Tu feminidad es una fuente de poder creativo enorme. Conéctate con la naturaleza, con tu cuerpo, con lo que te da placer genuino."},
+  {n:"El Emperador", desc:"El Emperador te invita a tomar las riendas de tu vida con seguridad y claridad. Tienes más autoridad y poder del que crees, y es momento de ejercerlo con gracia. Establece límites que honren tu energía. Construir estructura en tu día a día no te limita — te libera."},
+  {n:"El Hierofante", desc:"El Hierofante te conecta con la sabiduría que viene de la tradición, la espiritualidad y la comunidad. Hoy es un buen día para apoyarte en tus creencias más profundas o buscar consejo de alguien con más experiencia. También puede ser una invitación a comprometerte con algo que realmente valoras y que te da sentido de pertenencia."},
+  {n:"Los Enamorados", desc:"Los Enamorados hablan de elecciones que vienen desde el alma, no solo desde la razón. Hoy se te pide que te alineas con lo que verdaderamente valoras en tus relaciones y en tu vida. El amor más importante comienza por el que te tienes a ti misma. Cuando eres fiel a tus valores, las decisiones se vuelven más claras y más livianas."},
+  {n:"El Carro", desc:"El Carro trae una energía de avance poderoso y determinación. Has trabajado duro para llegar hasta aquí, y el universo está alineado para que avances con fuerza. Mantén el enfoque y no dejes que las opiniones ajenas desvíen tu rumbo. La victoria que viene es tuya porque la has ganado con esfuerzo y convicción."},
+  {n:"La Fuerza", desc:"La Fuerza que aparece hoy no es la del músculo sino la del corazón. Tu capacidad de mantener la calma, actuar con compasión y sostener situaciones difíciles con dignidad es extraordinaria. No subestimes el poder de tu gentileza. Tratar a los demás y a ti misma con ternura es uno de los actos más valientes que existen."},
+  {n:"EL Ermitaño", desc:"El Ermitaño te invita a un momento de retiro interior sagrado. La sabiduría que has acumulado a lo largo de tu vida es tu mayor linterna en este momento. No necesitas buscar respuestas afuera — están dentro de ti, esperando que te quedes lo suficientemente quieta para escucharlas. Date permiso de estar contigo misma sin culpa."},
+  {n:"La Rueda de la Fortuna", desc:"La Rueda de la Fortuna trae el recordatorio más hermoso: los ciclos siempre cambian. Si has estado en un momento difícil, algo nuevo y mejor está llegando. Si estás en un buen momento, disfrútalo plenamente. El universo está en constante movimiento a tu favor, aunque a veces no lo parezca. Confía en el ritmo de tu propia vida."},
+  {n:"La Justicia", desc:"La Justicia te habla hoy de equilibrio, verdad y consecuencias amorosas. Lo que has sembrado con intención genuina está dando sus frutos. Es también un momento para ser honesta contigo misma sobre alguna situación que requiere una decisión justa. Actuar con integridad siempre te lleva al lugar correcto, aunque el camino tome tiempo."},
+  {n:"El Colgado", desc:"El Colgado te pide que hagas una pausa sagrada antes de actuar. A veces el mayor acto de sabiduría es esperar y observar desde una perspectiva diferente. Esta pausa no es pérdida de tiempo — es una inversión en claridad. Suelta la necesidad de controlar el resultado y permite que algo nuevo pueda llegar a tu vida."},
+  {n:"La Muerte", desc:"La Muerte en el tarot no habla de finales trágicos sino de transformaciones profundas y necesarias. Algo que ya cumplió su ciclo está terminando para que algo más auténtico y poderoso pueda nacer en ti. Honra lo que fue, agradece las lecciones y abre tus brazos a quien estás becoming. Eres una mujer en constante y hermosa evolución."},
+  {n:"La Templanza", desc:"La Templanza te recuerda que la paciencia y el equilibrio son formas de amor propio. Estás en un proceso de integración — de unir partes de ti misma que antes estaban separadas. No todo necesita resolverse hoy. Confía en que el tiempo y la constancia están obrando a tu favor. Fluye con gracia en lugar de forzar."},
+  {n:"EL Diablo", desc:"El Diablo te muestra hoy aquello que te ha tenido atada sin que te dieras cuenta. Puede ser un patrón de pensamiento, una relación, un hábito o una creencia limitante. La buena noticia es que la cadena es más débil de lo que parece — tienes el poder de soltarla. El primer paso es simplemente reconocer lo que ya no te sirve."},
+  {n:"La Torre", desc:"La Torre puede sentirse intensa, pero su mensaje es liberador: lo que se derrumba es lo que nunca fue tuyo de verdad. A veces el universo necesita remover lo que nos bloquea para que podamos ver con claridad. Después de la tormenta siempre viene una calma más auténtica. Eres más fuerte que cualquier sacudida que enfrentes."},
+  {n:"La Estrella", desc:"La Estrella es la carta de la esperanza renovada y la sanación profunda. Después de momentos difíciles, ella aparece para recordarte que eres guiada y sostenida por algo más grande que tú. Hoy es un día para soñar, para creer en tus posibilidades y para permitirte recibir el amor y el apoyo que el universo tiene para ti. Tu luz no se apaga."},
+  {n:"La Luna", desc:"La Luna ilumina hoy tus mundos interiores — tus sueños, tus emociones, tu intuición más profunda. Puede que las cosas no estén del todo claras, y eso está bien. Presta atención a lo que sientes en lugar de solo a lo que piensas. Tu mundo emocional te está enviando mensajes importantes. Confía en tu intuición femenina — rara vez se equivoca."},
+  {n:"El Sol", desc:"El Sol llega hoy con toda su energía de alegría, claridad y éxito merecido. Es uno de los regalos más hermosos del tarot y hoy es tuyo. Permítete brillar sin pedir disculpas. Comparte tu luz, celebra tus logros, disfruta el momento presente con todo tu ser. Eres radiante, capaz y completamente merecedora de todo lo bueno que llega."},
+  {n:"EL Juicio", desc:"El Juicio trae un llamado profundo a despertar a tu propósito más elevado. Es un momento de renacimiento consciente — de dejar ir la versión de ti que ya no cabe en quien estás siendo hoy. Perdónate por lo que no sabías antes y celebra quien eres ahora. El universo te está llamando a dar un paso más hacia tu versión más auténtica y poderosa."},
+  {n:"EL Mundo", desc:"El Mundo es la carta de la completitud, el logro y la celebración merecida. Has llegado al final de un ciclo importante con sabiduría ganada y cicatrices que cuentan historias de fortaleza. Tómate un momento para reconocer todo lo que has recorrido. Este es también el inicio de un nuevo ciclo más expansivo. Eres una mujer completa, íntegra y llena de posibilidades."}
 ];
 
 const menores = {
   Copas: { cartas:[
-    {n:"As de Copas", desc:"Un nuevo amor o emoción fresca llega a tu corazón. Ábrelo con confianza."},
-    {n:"Dos de Copas", desc:"Conexión y armonía florecen en tus relaciones más importantes."},
-    {n:"Tres de Copas", desc:"Es tiempo de celebrar con tus amigas y recibir el apoyo femenino que mereces."},
-    {n:"Cuatro de Copas", desc:"Haz una pausa para valorar profundamente todo lo que ya tienes en tu vida."},
-    {n:"Cinco de Copas", desc:"Suelta las pérdidas del pasado; hay copas llenas de amor esperándote adelante."},
-    {n:"Seis de Copas", desc:"Una nostalgia dulce o un amor que regresa de formas inesperadas y hermosas."},
-    {n:"Siete de Copas", desc:"Tienes múltiples opciones ante ti; elige con el corazón y la intuición."},
-    {n:"Ocho de Copas", desc:"Dejas algo atrás para buscar algo mucho más significativo y auténtico."},
-    {n:"Nueve de Copas", desc:"Satisfacción emocional profunda. Tus deseos más queridos están cumpliéndose."},
-    {n:"Diez de Copas", desc:"Felicidad familiar y plenitud emocional. El hogar del corazón está floreciendo."},
-    {n:"Paje de Copas", desc:"Un mensaje de amor o una nueva y bella emoción está llegando a tu vida."},
-    {n:"Caballero de Copas", desc:"Una invitación romántica o afectiva se acerca. Recíbela con apertura."},
-    {n:"Reina de Copas", desc:"Tu intuición poderosa y tu corazón compasivo son tus mayores dones hoy."},
-    {n:"Rey de Copas", desc:"La madurez emocional y el liderazgo amoroso son tu guía en este momento."}
+    {n:"As de Copas", desc:"El As de Copas anuncia el inicio de algo emocionalmente hermoso. Un nuevo amor, una amistad profunda, una creatividad que florece o una conexión espiritual que te nutre. Tu corazón está abierto y listo para recibir. Permite que este nuevo comienzo emocional entre sin resistencia — mereces sentirte llena de amor."},
+    {n:"Dos de Copas", desc:"El Dos de Copas celebra la conexión genuina y el amor mutuo. Hay una relación en tu vida — romántica, de amistad o profesional — que vibra en perfecta armonía contigo. Este es un momento de unión, de comprensión profunda y de reciprocidad. Valora y nutre esos vínculos que te hacen sentir vista y amada."},
+    {n:"Tres de Copas", desc:"El Tres de Copas es una invitación a celebrar con quienes amas. La alegría se multiplica cuando se comparte, y hoy el universo te anima a rodearte de tus personas favoritas. Es también un recordatorio de la importancia del apoyo femenino en tu vida. Busca, nutre y celebra esas amistades que te elevan."},
+    {n:"Cuatro de Copas", desc:"El Cuatro de Copas te invita a hacer una pausa y valorar lo que ya tienes. A veces estamos tan enfocadas en lo que falta que no vemos la abundancia emocional que ya existe en nuestra vida. Hay bendiciones frente a ti que merecen tu atención y gratitud. Abre los ojos del corazón y mira cuánto amor ya te rodea."},
+    {n:"Cinco de Copas", desc:"El Cinco de Copas reconoce que has atravesado una pérdida o decepción, y eso merece ser honrado. Sin embargo, detrás de ti quedan copas llenas que aún no has visto. El duelo es parte del amor, y sanarlo es un acto de valentia. Cuando estés lista, voltea hacia lo que aún permanece — ahí encontrarás tu próximo paso."},
+    {n:"Seis de Copas", desc:"El Seis de Copas trae una dulce nostalgia y recuerdos que calientan el corazón. Puede que alguien del pasado regrese a tu vida, o que encuentres sanación revisitando memorias con ojos de compasión. Es también una carta de inocencia y de dar sin esperar nada a cambio. El amor puro que has dado siempre regresa de formas hermosas."},
+    {n:"Siete de Copas", desc:"El Siete de Copas te presenta múltiples posibilidades y sueños que compiten por tu atención. Es un momento de discernimiento — no todo lo que brilla es para ti. Conecta con tu corazón y pregúntate qué deseas de verdad, más allá de las apariencias. Tu intuición sabe distinguir entre lo que te nutre y lo que solo te distrae."},
+    {n:"Ocho de Copas", desc:"El Ocho de Copas habla de una partida valiente hacia algo más significativo. Estás dejando atrás algo que ya no te llena — y aunque puede doler, es un acto de amor propio profundo. No todas las cosas que amamos nos convienen para siempre. Confía en que hay algo más auténtico esperándote al final de este camino."},
+    {n:"Nueve de Copas", desc:"El Nueve de Copas es la carta de los deseos cumplidos y la satisfacción emocional genuina. Algo que has deseado profundamente está materializándose o está muy cerca de hacerlo. Permítete sentir esta alegría sin culpa y sin minimizarla. Te lo has ganado, y el universo está celebrando contigo este momento de plenitud."},
+    {n:"Diez de Copas", desc:"El Diez de Copas es la carta de la felicidad familiar y la plenitud emocional completa. Representa armonía en el hogar, amor que fluye libremente y relaciones que nutren el alma. Es un recordatorio de que la verdadera riqueza se mide en vínculos amorosos y momentos de conexión genuina. Tu corazón y tu hogar están floreciendo."},
+    {n:"Paje de Copas", desc:"El Paje de Copas anuncia mensajes de amor, inspiración creativa o una nueva emoción que llega con suavidad. Puede ser una noticia que alegra tu corazón, una idea artística que emerge o una sensación de apertura emocional que no esperabas. Recibe este mensaje con curiosidad y sin juzgar. Tu corazón está listo para algo nuevo y hermoso."},
+    {n:"Caballero de Copas", desc:"El Caballero de Copas trae consigo una invitación romántica, un gesto afectuoso o una propuesta que viene del corazón. Es la energía del cortejo, de la expresión amorosa y de seguir los sentimientos con gracia. Puede representar a alguien en tu vida o una parte tuya que está lista para abrirse al amor. Recíbelo con el corazón abierto."},
+    {n:"Reina de Copas", desc:"La Reina de Copas eres tú en tu máxima expresión emocional. Eres intuición, compasión, amor incondicional y sabiduría del corazón. Tu capacidad de sentir profundamente y de sostener emocionalmente a quienes amas es un don extraordinario. Hoy te recuerda también que mereces recibir ese mismo amor y cuidado que tan generosamente das a los demás."},
+    {n:"Rey de Copas", desc:"El Rey de Copas representa la madurez emocional en su más alta expresión. Es la capacidad de liderar con el corazón, de mantener la calma en la tormenta y de tomar decisiones sabias sin perder la sensibilidad. Hoy te invita a equilibrar tu mundo emocional con tu mundo práctico. Eres capaz de ser fuerte y tierna al mismo tiempo."}
   ]},
   Espadas: { cartas:[
-    {n:"As de Espadas", desc:"Claridad mental poderosa llega hoy. La verdad te libera y te da dirección clara."},
-    {n:"Dos de Espadas", desc:"Una decisión importante necesita quietud y tiempo. Confía en tu proceso interno."},
-    {n:"Tres de Espadas", desc:"El dolor que reconoces y sientes honestamente es el que sana más profundamente."},
-    {n:"Cuatro de Espadas", desc:"Tu mente activa merece descanso reparador. El reposo también es sabiduría."},
-    {n:"Cinco de Espadas", desc:"Una situación difícil ha llegado a su fin. Es momento de avanzar con ligereza."},
-    {n:"Seis de Espadas", desc:"Una transición suave hacia aguas más tranquilas. El pasaje que tomas es seguro."},
-    {n:"Siete de Espadas", desc:"La estrategia inteligente es tu mejor aliada hoy. Piensa antes de actuar."},
-    {n:"Ocho de Espadas", desc:"Las limitaciones que sientes son más mentales que reales. Eres mucho más libre."},
-    {n:"Nueve de Espadas", desc:"Los miedos nocturnos se disipan con la luz del nuevo día que llega para ti."},
-    {n:"Diez de Espadas", desc:"Un ciclo difícil termina definitivamente hoy. El amanecer luminoso es completamente tuyo."},
-    {n:"Paje de Espadas", desc:"Curiosidad intelectual fresca y nuevas ideas inspiradoras llegan a tu mente."},
-    {n:"Caballero de Espadas", desc:"Acción rápida y decisiva. El momento de moverte con valentía es ahora mismo."},
-    {n:"Reina de Espadas", desc:"Tu mente aguda, tu independencia y tu sabiduría ganada son tus grandes poderes."},
-    {n:"Rey de Espadas", desc:"El liderazgo mental y el pensamiento claro y justo te guían hoy con fuerza."}
+    {n:"As de Espadas", desc:"El As de Espadas trae una claridad mental poderosa y reveladora. La verdad — aunque a veces incómoda — es lo que te libera y te da dirección. Hoy es un día para pensar con lucidez, tomar decisiones desde la honestidad y cortar lo que ya no sirve con precisión y sin culpa. La claridad es un regalo, aunque llegue de formas inesperadas."},
+    {n:"Dos de Espadas", desc:"El Dos de Espadas te encuentra en un momento de decisión que requiere quietud interior. Hay algo que aún no puedes ver con claridad porque el momento no es el correcto. Date permiso de esperar sin ansiedad. Cuando te permites estar en la incertidumbre con paz, la respuesta llega de manera natural. No fuerces lo que aún necesita tiempo."},
+    {n:"Tres de Espadas", desc:"El Tres de Espadas reconoce un dolor real que merece ser sentido y honrado. No hay atajos en el proceso de sanar, pero sí hay luz al final. El dolor que reconoces y atravesas conscientemente es el que más profundamente te transforma. Permítete sentir sin juzgarte. El corazón que ha amado también tiene el poder de sanar."},
+    {n:"Cuatro de Espadas", desc:"El Cuatro de Espadas es una invitación sagrada al descanso y la recuperación. Tu mente brillante y activa necesita pausas para funcionar en su máximo potencial. Descansar no es ser improductiva — es ser sabia. Date permiso de soltar el peso por un momento, de respirar, de estar sin hacer. Tu cuerpo y tu mente te lo agradecerán."},
+    {n:"Cinco de Espadas", desc:"El Cinco de Espadas anuncia el fin de un conflicto o situación tensa. Aunque el proceso haya sido difícil, lo más importante ahora es avanzar con la cabeza en alto y sin cargar rencores. No todas las batallas merecen tu energía, y reconocerlo es una forma de sabiduría. Deja ir lo que ya pasó y enfócate en construir desde la paz."},
+    {n:"Seis de Espadas", desc:"El Seis de Espadas marca una transición hacia aguas más tranquilas. Estás dejando atrás un período turbulento y moviéndote hacia un lugar de mayor calma y claridad. El cambio puede sentirse incierto, pero el rumbo es correcto. Confía en que cada paso que das te aleja de lo que te pesaba y te acerca a la serenidad que mereces."},
+    {n:"Siete de Espadas", desc:"El Siete de Espadas te invita a usar tu inteligencia estratégica con integridad. Hay una situación que requiere que pienses antes de actuar y que elijas tus palabras y movimientos con cuidado. También puede ser un recordatorio de revisar si hay algo en tu vida que no está siendo completamente honesto. La autenticidad siempre es el camino más poderoso."},
+    {n:"Ocho de Espadas", desc:"El Ocho de Espadas te revela que las limitaciones que sientes son en gran parte construcciones de tu propia mente. Eres mucho más libre de lo que crees. Las cadenas que te detienen no son tan sólidas como parecen — a veces basta con cambiar la perspectiva para descubrir que siempre tuviste la llave. Tu mente es poderosa: úsala para liberarte."},
+    {n:"Nueve de Espadas", desc:"El Nueve de Espadas reconoce las noches difíciles y los pensamientos que te quitan el sueño. Lo que sientes es válido, pero recuerda que la mente nocturna suele magnificar los problemas. A la luz del día, las cosas siempre se ven diferente. Busca apoyo, habla con alguien de confianza y recuerda que esta oscuridad también tiene un amanecer."},
+    {n:"Diez de Espadas", desc:"El Diez de Espadas marca el fin definitivo de un ciclo muy difícil. Lo que ha terminado, aunque doloroso, abre espacio para algo completamente nuevo. No puedes cargar el pasado hacia tu futuro — y eso es una liberación, no una pérdida. El amanecer que viene después de esta noche es tuyo, y será más brillante porque sabes lo que cuesta."},
+    {n:"Paje de Espadas", desc:"El Paje de Espadas trae energía de curiosidad intelectual, nuevas ideas y ganas de aprender. Es un buen momento para investigar, hacer preguntas y explorar territorios mentales nuevos. También puede traer noticias o conversaciones que requieren tu atención. Mantén la mente abierta y el pensamiento crítico activo — la información que llega hoy puede ser muy valiosa."},
+    {n:"Caballero de Espadas", desc:"El Caballero de Espadas trae una energía de acción rápida, decisiva y enfocada. Hay algo que requiere que te muevas con valentía y sin dudar demasiado. La velocidad es tu aliada hoy, siempre que esté acompañada de claridad de propósito. Confía en tu capacidad de tomar decisiones inteligentes bajo presión — tienes más de lo que crees."},
+    {n:"Reina de Espadas", desc:"La Reina de Espadas eres tú cuando confías en tu mente brillante y tu capacidad de ver las cosas como son. Su sabiduría viene de haber atravesado experiencias difíciles y haber salido más fuerte. Hoy te invita a hablar con claridad, a establecer límites con amor y firmeza, y a confiar en tu juicio. Tu mente aguda es uno de tus mayores dones."},
+    {n:"Rey de Espadas", desc:"El Rey de Espadas representa el liderazgo mental más elevado: justo, claro y con visión de largo plazo. Hoy te invita a tomar decisiones desde la lógica y la ética, sin dejarte llevar por emociones del momento. Es también un recordatorio de equilibrar la razón con la intuición. Cuando usas ambas juntas, tus decisiones son verdaderamente poderosas."}
   ]},
   Oros: { cartas:[
-    {n:"As de Oros", desc:"Una nueva oportunidad material o económica llama a tu puerta hoy. Ábrela."},
-    {n:"Dos de Oros", desc:"Equilibrio financiero y adaptación elegante ante los cambios que vienen."},
-    {n:"Tres de Oros", desc:"Tu trabajo y talento están siendo reconocidos y valorados profundamente."},
-    {n:"Cuatro de Oros", desc:"La seguridad y estabilidad que has construido con esfuerzo son completamente tuyas."},
-    {n:"Cinco de Oros", desc:"Una dificultad temporal pasa; el apoyo que necesitas está más cerca de lo que crees."},
-    {n:"Seis de Oros", desc:"Tu generosidad regresa multiplicada. El dar y recibir están en hermoso equilibrio."},
-    {n:"Siete de Oros", desc:"Tu inversión de tiempo y esfuerzo está dando frutos. La paciencia es sabia."},
-    {n:"Ocho de Oros", desc:"La maestría y dedicación que pones en lo que haces crean una excelencia real."},
-    {n:"Nueve de Oros", desc:"Independencia, abundancia y logros propios. ¡Todo lo que tienes lo has ganado!"},
-    {n:"Diez de Oros", desc:"Estabilidad familiar y un legado duradero se construyen con amor desde hoy."},
-    {n:"Paje de Oros", desc:"Una oportunidad de aprendizaje o un proyecto nuevo y prometedor emerge para ti."},
-    {n:"Caballero de Oros", desc:"Un avance constante y confiable hacia tus metas más importantes está en marcha."},
-    {n:"Reina de Oros", desc:"Abundancia, sensualidad y conexión profunda con la naturaleza te nutren hoy."},
-    {n:"Rey de Oros", desc:"El éxito material y la generosidad sabia fluyen juntos en tu vida ahora."}
+    {n:"As de Oros", desc:"El As de Oros anuncia el inicio de un ciclo de abundancia material y bienestar tangible. Una nueva oportunidad económica, un proyecto prometedor o una semilla de prosperidad está llegando a tu vida. Ábrele la puerta con confianza y gratitud. El universo está listo para darte más — solo necesita que tú también estés lista para recibir."},
+    {n:"Dos de Oros", desc:"El Dos de Oros te habla de la danza del equilibrio financiero y vital. Estás manejando múltiples responsabilidades con más gracia de la que reconoces. Hoy te invita a revisar cómo distribuyes tu tiempo, energía y recursos para que todo fluya con mayor armonía. La flexibilidad es tu superpoder en este momento — úsala con consciencia."},
+    {n:"Tres de Oros", desc:"El Tres de Oros celebra el reconocimiento de tu trabajo y talento. Lo que has construido con dedicación y maestría está siendo visto y valorado. Es también una carta de colaboración — los proyectos más poderosos nacen cuando personas talentosas trabajan juntas con un propósito común. Tu contribución es única e irremplazable."},
+    {n:"Cuatro de Oros", desc:"El Cuatro de Oros habla de seguridad y estabilidad que has construido con esfuerzo propio. Es válido querer proteger lo que has logrado. Sin embargo, también te invita a reflexionar si el miedo a perder te está impidiendo crecer o compartir. La verdadera abundancia fluye — no se acumula por miedo. Confía en tu capacidad de generar más."},
+    {n:"Cinco de Oros", desc:"El Cinco de Oros reconoce un momento de escasez o dificultad material que puede sentirse muy solitario. Pero hay ayuda más cerca de lo que crees — a veces solo hay que pedir. Esta carta también te recuerda que las dificultades económicas son temporales y que tu valor como persona no está definido por tu situación financiera. Esto también pasará."},
+    {n:"Seis de Oros", desc:"El Seis de Oros celebra el hermoso equilibrio entre dar y recibir. Hoy puede que seas tú quien da generosamente, o quien recibe con gratitud — ambos roles son sagrados. La generosidad que fluye desde la abundancia real, no desde el miedo, siempre regresa multiplicada. Confía en este ciclo virtuoso y permítete ser parte de él plenamente."},
+    {n:"Siete de Oros", desc:"El Siete de Oros te pide paciencia y perspectiva de largo plazo. Lo que has sembrado con esfuerzo y dedicación está creciendo, aunque quizás no lo veas todavía. Este es el momento de evaluar si estás invirtiendo tu energía en lo que realmente importa. Los frutos están llegando — confía en el proceso y sigue regando lo que vale la pena."},
+    {n:"Ocho de Oros", desc:"El Ocho de Oros celebra la maestría que se construye paso a paso, con dedicación y amor por lo que haces. Estás en un proceso de perfeccionamiento de tus habilidades que dará grandes frutos. No subestimes el poder del trabajo constante y bien hecho. Cada pequeño avance es parte de una obra maestra que estás construyendo con tus propias manos."},
+    {n:"Nueve de Oros", desc:"El Nueve de Oros es una de las cartas más hermosas para una mujer — habla de independencia ganada, abundancia merecida y el placer de disfrutar los frutos de tu propio esfuerzo. Eres una mujer que se ha construido a sí misma con dedicación y elegancia. Hoy el universo te invita a disfrutar lo que has logrado sin culpa y sin minimizarlo."},
+    {n:"Diez de Oros", desc:"El Diez de Oros representa la estabilidad más profunda: la que se construye para las generaciones que vienen. Habla de legado, de hogar sólido y de abundancia que trasciende lo material. Estás construyendo algo duradero, aunque a veces no lo veas en el día a día. Lo que hoy haces con amor e intención será el regalo que dejas al mundo."},
+    {n:"Paje de Oros", desc:"El Paje de Oros trae la energía del aprendizaje con propósito y la curiosidad práctica. Hay una oportunidad de crecimiento — ya sea un estudio, un nuevo proyecto o una habilidad por desarrollar — que vale la pena explorar. Acércate con paciencia, rigor y apertura. Las semillas que plantas hoy en tu desarrollo personal y profesional darán grandes frutos."},
+    {n:"Caballero de Oros", desc:"El Caballero de Oros avanza lento pero seguro hacia sus metas, y hoy esa es tu energía. No se trata de velocidad sino de consistencia y confiabilidad. Cada paso que das con responsabilidad y determinación te acerca más a lo que deseas. La tortuga siempre llega — y llega habiendo disfrutado el camino con más consciencia que la liebre."},
+    {n:"Reina de Oros", desc:"La Reina de Oros eres tú cuando te permites disfrutar plenamente los frutos de tu esfuerzo. Es abundancia encarnada en una mujer que cuida su cuerpo, su hogar, sus finanzas y sus relaciones con la misma elegancia. Hoy te invita a conectarte con tus sentidos, con la naturaleza y con el placer de vivir bien. Eres merecedora de todo lo bello que te rodea."},
+    {n:"Rey de Oros", desc:"El Rey de Oros representa el éxito material construido con sabiduría, generosidad y visión de largo plazo. Hoy te invita a liderar tu mundo material con confianza — tus finanzas, tu negocio, tu hogar — sabiendo que tienes la capacidad y la experiencia para hacerlo brillar. La prosperidad que construyes desde la integridad es sólida y duradera."}
   ]},
   Bastos: { cartas:[
-    {n:"As de Bastos", desc:"Inspiración poderosa y energía creativa en su punto más alto. ¡Crea hoy!"},
-    {n:"Dos de Bastos", desc:"Tu visión audaz y tu planificación inteligente están construyendo algo grande."},
-    {n:"Tres de Bastos", desc:"Tu visión se expande más allá de lo que imaginabas. El horizonte es vasto y tuyo."},
-    {n:"Cuatro de Bastos", desc:"Celebración, hogar feliz y una estabilidad llena de alegría te envuelven hoy."},
-    {n:"Cinco de Bastos", desc:"La competencia sana y el movimiento activo te impulsan a dar tu mejor versión."},
-    {n:"Seis de Bastos", desc:"La victoria y el reconocimiento llegan. Este es definitivamente tu momento de brillar."},
-    {n:"Siete de Bastos", desc:"Tu posición es más fuerte de lo que parece. Defiende tu verdad con confianza."},
-    {n:"Ocho de Bastos", desc:"Todo se mueve rápido y con claridad. Fluye con gracia con el ritmo acelerado."},
-    {n:"Nueve de Bastos", desc:"Eres más resiliente de lo que imaginas. Estás muy cerca de llegar a tu meta."},
-    {n:"Diez de Bastos", desc:"Es momento de delegar con gracia lo que ya no necesitas cargar sola. Libérate."},
-    {n:"Paje de Bastos", desc:"Un nuevo proyecto creativo o una aventura emocionante está esperándote."},
-    {n:"Caballero de Bastos", desc:"Pasión y acción audaz. La energía del universo fluye completamente contigo hoy."},
-    {n:"Reina de Bastos", desc:"Tu carisma, tu pasión y tu liderazgo inspirador son regalos que el mundo necesita."},
-    {n:"Rey de Bastos", desc:"Visión poderosa y creatividad al servicio de todos. Tu influencia positiva es real."}
+    {n:"As de Bastos", desc:"El As de Bastos enciende en ti una chispa de inspiración y energía creativa que no puedes ignorar. Algo nuevo quiere nacer a través de ti — un proyecto, una idea, una pasión. Este es el momento de decir sí a esa llama interior y darle forma. No esperes a tener todo perfecto; la magia comienza cuando das el primer paso con entusiasmo."},
+    {n:"Dos de Bastos", desc:"El Dos de Bastos te encuentra en el umbral de algo grande. Has tenido la visión, has hecho los planes, y ahora el mundo espera que des el siguiente paso. Hay una energía de expansión y posibilidad enorme frente a ti. Confía en tu capacidad de ir más allá de lo conocido. El horizonte que ves es solo el comienzo de lo que puedes alcanzar."},
+    {n:"Tres de Bastos", desc:"El Tres de Bastos celebra que tu visión se está expandiendo más allá de lo que imaginabas. Lo que sembraste con entusiasmo está comenzando a dar frutos visibles. Es también un momento de anticipación — algo que enviaste al mundo está regresando a ti de formas hermosas. Mantén los ojos abiertos y el corazón dispuesto a recibir."},
+    {n:"Cuatro de Bastos", desc:"El Cuatro de Bastos es una de las cartas más alegres del tarot — celebración, hogar en armonía y una estabilidad que se siente como un abrazo cálido. Hay algo que merece ser festejado en tu vida ahora mismo. Reúne a las personas que amas, marca este momento y permítete sentir la alegría sin reservas. La vida también es esto: detenerse a celebrar."},
+    {n:"Cinco de Bastos", desc:"El Cinco de Bastos trae movimiento, energía activa y quizás algo de competencia o caos creativo. Hay múltiples fuerzas en juego y puede sentirse abrumador. Pero recuerda: no todas las batallas requieren tu participación. Elige conscientemente dónde pones tu energía y confía en que tu fuego interior es suficientemente poderoso para brillar sin necesitar apagar a nadie más."},
+    {n:"Seis de Bastos", desc:"El Seis de Bastos trae el dulce sabor del reconocimiento y la victoria merecida. Tu trabajo, tu talento y tu dedicación están siendo vistos y celebrados. Es tu momento de recibir ese reconocimiento con gracia y sin minimizarlo. Brillar no le quita luz a nadie — al contrario, tu éxito inspira a otras mujeres a creer en el propio. Acepta este momento con orgullo."},
+    {n:"Siete de Bastos", desc:"El Siete de Bastos te encuentra defendiendo tu posición con valentía frente a los desafíos. Tu terreno es más sólido de lo que parece, y tienes la fuerza y la experiencia para sostenerlo. No te dejes intimidar por las presiones externas. Mantente firme en tus valores y en lo que sabes que es correcto para ti. Tienes todo lo que necesitas para prevalecer."},
+    {n:"Ocho de Bastos", desc:"El Ocho de Bastos trae una energía de movimiento rápido, noticias que llegan y situaciones que se aceleran. Este es un momento para actuar con velocidad y confianza. Las cosas están fluyendo en la dirección correcta — no las frenes con dudas innecesarias. Mantente ágil, receptiva y lista para responder. La energía que sientes ahora es tuya para aprovechar."},
+    {n:"Nueve de Bastos", desc:"El Nueve de Bastos te encuentra cansada pero de pie, lo cual habla de una fortaleza extraordinaria. Has cargado mucho y has llegado muy lejos. Estás más cerca de la meta de lo que crees. Permítete descansar sin rendirte. Tu resiliencia es real y admirable. Un último esfuerzo consciente, hecho desde la sabiduría y no desde la fuerza bruta, te llevará hasta el final."},
+    {n:"Diez de Bastos", desc:"El Diez de Bastos te muestra una carga que se ha vuelto demasiado pesada. Has sido tan capaz y tan responsable que el mundo —y tú misma— te han ido poniendo más y más encima. Es momento de revisar qué puedes soltar, delegar o simplificar. Pedir ayuda no es debilidad — es inteligencia emocional. Mereces llegar a tus metas sin agotarte en el camino."},
+    {n:"Paje de Bastos", desc:"El Paje de Bastos trae una energía fresca, entusiasta y llena de posibilidades creativas. Hay algo nuevo que te llama con emoción — un proyecto, una aventura, una forma de expresión que quiere salir a través de ti. Explora sin presión de resultados inmediatos. Este es un tiempo de descubrimiento y juego creativo. Deja que la curiosidad te guíe hacia algo maravilloso."},
+    {n:"Caballero de Bastos", desc:"El Caballero de Bastos llega con fuego en el corazón y acción en los pies. Es energía pura de pasión, aventura y movimiento hacia lo que deseas. Hoy te invita a actuar con audacia y a seguir tu entusiasmo sin pedirle permiso a nadie. Canaliza esa energía poderosa con una dirección clara y verás cómo las cosas se mueven a una velocidad que te sorprenderá."},
+    {n:"Reina de Bastos", desc:"La Reina de Bastos eres tú cuando te permites brillar con toda tu fuerza, carisma y pasión. Es liderazgo encendido, creatividad desbordante y una presencia que ilumina cada espacio que habita. Hoy te recuerda que tu fuego interior es un don, no una amenaza. Lidera con confianza, crea con pasión y sé tan magnética como eres cuando te permites ser completamente tú."},
+    {n:"Rey de Bastos", desc:"El Rey de Bastos representa la visión creativa más elevada al servicio de algo grande. Es el líder que inspira con su ejemplo, que enciende el fuego en los demás y que construye con propósito y pasión. Hoy te invita a pensar en grande, a liderar desde tu autenticidad y a usar tu influencia para crear algo que trascienda. Tu visión tiene el poder de cambiar realidades."}
   ]}
 };
 
@@ -258,7 +275,7 @@ Genera un mensaje del día en español, cálido, positivo y empoderador (4-5 ora
 - Carta menor "${menor1.n}" como energía del mañana: ${menor1.desc}
 - Carta menor "${menor2.n}" como consejo práctico: ${menor2.desc}
 ${signo ? `La usuaria es del signo ${signo}.` : ''}${nombre ? ` Su nombre es ${nombre}.` : ''}
-El mensaje debe: mencionar las cartas de forma natural y fluida, enfocarse en temas de autoestima, relaciones, propósito y salud emocional para mujeres de 45+, usar tono íntimo de mujer a mujer, y terminar con una afirmación positiva breve entre *asteriscos*.
+El mensaje debe: mencionar las cartas de forma natural y fluida, enfocarse en temas de autoestima, relaciones, propósito y salud emocional para mujeres de 45+, usar tono íntimo de mujer a mujer, y terminar con una afirmación positiva breve entre *asteriscos* que sea diferente en cada lectura.
 Solo escribe el párrafo continuo, sin títulos ni listas.`;
 
   try {
@@ -279,7 +296,7 @@ Solo escribe el párrafo continuo, sin títulos ni listas.`;
 
 function fallback(mayor, m1, m2, nombre) {
   const n = nombre || 'Querida';
-  return `${n}, hoy ${mayor.n} ilumina tu camino: ${mayor.desc} La energía de ${m1.n} te invita a abrirte con confianza — ${m1.desc.toLowerCase()} Y como consejo práctico, ${m2.n} te susurra: ${m2.desc.toLowerCase()} Confía en el proceso, porque cada carta confirma que estás exactamente donde necesitas estar. *Eres sabia, eres fuerte y eres completamente suficiente.*`;
+  return `${n}, hoy ${mayor.n} ilumina tu camino: ${mayor.desc} La energía de ${m1.n} te invita a abrirte con confianza — ${m1.desc.toLowerCase()} Y como consejo práctico, ${m2.n} te susurra: ${m2.desc.toLowerCase()} Confía en el proceso, porque cada carta confirma que estás exactamente donde necesitas estar. ${afirmacionAleatoria()}`;
 }
 
 function nuevaTirada() {
